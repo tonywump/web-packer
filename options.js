@@ -4,43 +4,31 @@
 
 'use strict';
 
-// let page = document.getElementById('buttonDiv');
-// const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
-// function constructOptions(kButtonColors) {
-//   for (let item of kButtonColors) {
-//     let button = document.createElement('button');
-//     button.style.backgroundColor = item;
-//     button.addEventListener('click', function() {
-//       chrome.storage.sync.set({color: item}, function() {
-//         console.log('color is ' + item);
-//       })
-//     });
-//     page.appendChild(button);
-//   }
-// }
-// constructOptions(kButtonColors);
+var oldURL = null;
+
 this.setInterval(
-  function update(){
-    var msg = document.getElementById('qrcode');
-    var urls = localStorage.getItem('URLS');
+  function update() {
+    var qrcode = document.getElementById('qrcode');
+    var urls = localStorage.getItem("WEB-PACKER-URLS");
+    if (urls == oldURL) return;
+    oldURL = urls;
     var imgSrc = QRCode(urls, 300, 300);
-    msg.innerHTML = '<img src="' + imgSrc + '" alt="" />';
-  },3000
+    qrcode.innerHTML = '<img src="' + imgSrc + '" alt="" width="300" height="300" />';
+  }, 3000
 );
 
-window.onload = function(){
-    var msg = document.getElementById('qrcode');
-    var urls = localStorage.getItem('URLS');
-    var imgSrc = QRCode(urls, 300, 300);
-    msg.innerHTML = '<img src="' + imgSrc + '" alt="" />';
+window.onload = function () {
+  var qrcode = document.getElementById('qrcode');
+  var urls = localStorage.getItem("WEB-PACKER-URLS");
+  if (urls == oldURL) return;
+  oldURL = urls;
+  var imgSrc = QRCode(urls, 300, 300);
+  qrcode.innerHTML = '<img src="' + imgSrc + '" alt="" />';
 };
 
-
-function QRCode(content, width, height){
-	// 預設寬高為 120x120
-	width = !!width ? width : 120 ;
-	height = !!height ? height : 120;
-	// 編碼
-	content = encodeURIComponent(content);
-    return 'http://chart.apis.google.com/chart?cht=qr&chl=' + content + '&chs=' + width + 'x' + height;
+function QRCode(content, width, height) {
+  width = !!width ? width : 300;
+  height = !!height ? height : 300;
+  content = encodeURIComponent(content);
+  return "https://api.qrserver.com/v1/create-qr-code/?size=" + width + "x" + height + "&data=" + content;
 }

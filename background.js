@@ -17,6 +17,8 @@
 //     localStorage.setItem("URLS",json);
 // }
 
+
+
 chrome.windows.getAll({populate:true},function(windows){
   windows.forEach(function(window){
     var urls = [];
@@ -26,8 +28,7 @@ chrome.windows.getAll({populate:true},function(windows){
       urls.push(tab.url);
     });
     var json = JSON.stringify(urls);
-    console.log(json);
-    localStorage.setItem("URLS",json);
+    localStorage.setItem("WEB-PACKER-URLS",json);
   });
 });
 
@@ -42,8 +43,7 @@ this.setInterval(
           urls.push(tab.url);
         });
         var json = JSON.stringify(urls);
-        console.log(json);
-        localStorage.setItem("URLS",json);
+        localStorage.setItem("WEB-PACKER-URLS",json);
       });
     });
   },3000
