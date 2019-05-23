@@ -9,7 +9,7 @@ var oldURL = null;
 this.setInterval(
   function update() {
     var qrcode = document.getElementById('qrcode');
-    var urls = localStorage.getItem("WEB-PACKER-URLS");
+    var urls = localStorage.getItem("WEB-PACKER-URL");
     if (urls == oldURL) return;
     oldURL = urls;
     var imgSrc = QRCode(urls, 300, 300);
@@ -19,7 +19,7 @@ this.setInterval(
 
 window.onload = function () {
   var qrcode = document.getElementById('qrcode');
-  var urls = localStorage.getItem("WEB-PACKER-URLS");
+  var urls = localStorage.getItem("WEB-PACKER-URL");
   if (urls == oldURL) return;
   oldURL = urls;
   var imgSrc = QRCode(urls, 300, 300);

@@ -19,32 +19,43 @@
 
 
 
-chrome.windows.getAll({populate:true},function(windows){
-  windows.forEach(function(window){
-    var urls = [];
-    window.tabs.forEach(function(tab){
-      //collect all of the urls here, I will just log them instead
-      console.log(tab.url);
-      urls.push(tab.url);
-    });
-    var json = JSON.stringify(urls);
-    localStorage.setItem("WEB-PACKER-URLS",json);
-  });
+chrome.tabs.getSelected(null, function(tab) {
+  console.log(tab.url);
+  localStorage.setItem("WEB-PACKER-URL",tab.url);
 });
+
+
+// chrome.windows.getAll({populate:true},function(windows){
+  
+//   windows.forEach(function(window){
+//     var tabUrl = '';
+//     // window.tabs.forEach(function(tab){
+//     //   //collect all of the urls here, I will just log them instead
+//     //   console.log(tab.url);
+//     //   urls.push(tab.url);
+//     // });
+//     var json = tabUrl;
+//     localStorage.setItem("WEB-PACKER-URLS",json);
+//   });
+// });
 
 this.setInterval(
   function update(){
-    chrome.windows.getAll({populate:true},function(windows){
-      windows.forEach(function(window){
-        var urls = [];
-        window.tabs.forEach(function(tab){
-          //collect all of the urls here, I will just log them instead
-          console.log(tab.url);
-          urls.push(tab.url);
-        });
-        var json = JSON.stringify(urls);
-        localStorage.setItem("WEB-PACKER-URLS",json);
-      });
-    });
+    chrome.tabs.getSelected(null, function(tab) {
+      console.log(tab.url);
+      localStorage.setItem("WEB-PACKER-URL",tab.url);
+    })
+    // chrome.windows.getAll({populate:true},function(windows){
+    //   windows.forEach(function(window){
+    //     var urls = [];
+    //     window.tabs.forEach(function(tab){
+    //       //collect all of the urls here, I will just log them instead
+    //       console.log(tab.url);
+    //       urls.push(tab.url);
+    //     });
+    //     var json = JSON.stringify(urls);
+    //     localStorage.setItem("WEB-PACKER-URLS",json);
+    //   });
+    // });
   },3000
 );
